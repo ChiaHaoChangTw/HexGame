@@ -94,6 +94,7 @@ void hexG::print(){
 	}
 }
 
+//dfs
 bool hexG::findPath(int x, int y, char symbol, vector<vector<bool>>& visited){
 	if((symbol == 'x' && y == this->size - 1)||symbol == 'o' && x == this->size - 1)
 		return true;
@@ -118,6 +119,7 @@ bool hexG::findPath(int x, int y, char symbol, vector<vector<bool>>& visited){
 	return found;
 }
 
+//dfs iteration on board
 bool hexG::checkWin(int turn){
 	char symbol = (turn == 0) ? 'x' : 'o';
 	vector<vector<bool>>visited = vector<vector<bool>>(this->size, vector<bool>(this->size, false));
