@@ -1,4 +1,5 @@
 #include "HexBoard.h"
+#include <iostream>
 using namespace std;
 
 int main(){
