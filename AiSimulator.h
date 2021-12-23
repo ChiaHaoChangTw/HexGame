@@ -8,11 +8,16 @@
 #ifndef AISIMULATOR_H
 #define AISIMULATOR_H
 
+#include <vector>
+#include <utility>
+
 class AiSimulator{
 public:
-	int simulate(const HexBoard& currHexBoard, int x, int y, int player);
+	static const int TARGET_NUM_SIM = 10000;
+	int simulate(HexBoard& currHexBoard, int x, int y, int player);
 private:
-	void findEmpty();
+	std::vector<std::pair<int, int>> emptyPositions;
+	void findEmpty(const HexBoard& currHexBoard);
 };
 
 #endif
