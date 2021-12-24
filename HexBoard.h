@@ -72,6 +72,11 @@ public:
  	 *
  	 */
 	bool setHexBoardPoint(int x, int y, char val);
+	/**
+	 * Return true if the player wins.
+	 * 
+	 */
+	bool isWin(char player);	
 
 	/**
 	 * Representation invariants:
@@ -84,6 +89,11 @@ public:
 private:
 	int hexBoardSize;
 	std::vector<std::vector<char>> hexBoardDetails;
+	/**
+	 * Return true if there exists a winning path for the player.
+	 *
+	 */
+	bool hasPath(int i, int j, char player, std::vector<std::vector<bool>>& visited);
 	/** 
  	 * Return true if HexBaord object data is in valid state.
  	 * (See representation invariant comment for details.)

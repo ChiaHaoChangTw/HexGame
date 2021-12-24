@@ -12,14 +12,31 @@
 
 using namespace std;
 
-int AiSimulator::simulate(HexBoard& currHexBoard, int x, int y, int player){
+int AiSimulator::simulate(HexBoard& currHexBoard, int x, int y, char player){
 	int numSim = 0, numWin = 0;
-	vector<pair<int, int>> shuffleEmptyPos = emptyPositions, simPlayerPos;
+	vector<pair<int, int>> shuffleEmptyPos = emptyPositions;
 	srand(time(0));
 	while(numSim < TARGET_NUM_SIM){
+		vector<pair<int, int>> simPlayerPos;
 		random_shuffle(shuffleEmptyPos.begin(), shuffleEmptyPos.end());
-		int i = 0, numFilled = 0, numToFill = static_cast<int> ((shuffleEmptyPos.size() - 1) / 2);
-		//start here
+		int pos = 0, numFilled = 0, numToFill = static_cast<int> ((shuffleEmptyPos.size() - 1) / 2);
+		currHexBoard.setHexBoardPoint(x, y, player);
+		while(pos < shuffleEmptyPos.size() && numFilled < numToFill){
+			int xSim = shuffleEmptyPos[pos].first, ySim = shuffleEmptyPos[pos].second;
+			if((xSim != x || ySim != y) && currHexBoard.getHexBoardPoint(xSim, ySim == '.')){
+				simPlayerPos.push_back(make_pair(xSim, ySim));
+				currHexBoard.setHexBoardPoint(xSim, ySim, player);
+				++numFilled;
+			}
+			++pos;
+		}
+		if(currHexBoard.isWin(player)){
+			++numWin;
+		}
+		currHexBoard.setHexBoardPoint(x, y, '.');
+		for(int i = 0; i < simPlayerPos.size(); ++i){
+			currHexBoard.setHexBoardPoint(simPlayerPos[i].first, simPlayerPos[i].second, '.');
+		}
 		++numSim;
 	}	
 	return numWin;

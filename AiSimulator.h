@@ -14,7 +14,7 @@
 class AiSimulator{
 public:
 	static const int TARGET_NUM_SIM = 10000;
-	int simulate(HexBoard& currHexBoard, int x, int y, int player);
+	int simulate(HexBoard& currHexBoard, int x, int y, char player);
 private:
 	std::vector<std::pair<int, int>> emptyPositions;
 	void findEmpty(const HexBoard& currHexBoard);

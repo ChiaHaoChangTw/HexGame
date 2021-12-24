@@ -121,6 +121,69 @@ bool HexBoard::setHexBoardPoint(int x, int y, char val){
 	return true;
 }
 
+/**
+ * Return true if the player wins.
+ *
+ */
+bool HexBoard::isWin(char player){
+	vector<vector<bool>> visited = vector<vector<bool>>(this->hexBoardSize, vector<bool>(this->hexBoardSize, false));
+	bool foundPath = false;
+	for(int i = 0; i < this->hexBoardSize; ++i){
+		if(player == 'x'){
+			if(visited[i][0]){
+				continue;
+			}
+			if(this->hexBoardDetails[i][0] != 'x'){
+				visited[i][0] = true;
+				continue;
+			}
+			if(foundPath = this->hasPath(i, 0, player, visited)){
+				break;
+			}
+		}
+		else{
+			if(visited[0][i]){
+				continue;
+			}
+			if(this->hexBoardDetails[0][i] != 'o'){
+				visited[0][i] = true;
+				continue;
+			}
+			if(foundPath = this->hasPath(0, i, player, visited)){
+				break;
+			}
+		}
+	}
+	return foundPath;
+}
+
+/**
+ * Return true if there exists a winning path for the player.
+ *
+ */
+bool HexBoard::hasPath(int i, int j, char player, std::vector<std::vector<bool>>& visited){
+	if(player == 'x' && j == this->hexBoardSize - 1 || player == 'o' && i == this->hexBoardSize - 1){
+		return true;
+	}
+	vector<vector<int>> offsets = {{0,1},{1,0},{0,-1},{-1,0},{1,-1},{-1,1}};
+	visited[i][j] = true;
+	bool foundPath = false;
+	for(auto& offset: offsets){
+		int ii = i + offset[0], jj = j + offset[1];
+		if(ii < 0 || ii >= this->hexBoardSize || jj < 0 || jj >= this->hexBoardSize || visited[ii][jj]){
+			continue;
+		}
+		if(this->hexBoardDetails[ii][jj] != player){
+			visited[ii][jj] = true;
+			continue;
+		}
+		if(foundPath = hasPath(ii, jj, player, visited)){
+			break;
+		}
+	}
+	return foundPath;
+}
+
 /** 
  * Return true if HexBaord object data is in valid state.
  * (See representation invariant comment for details.)
