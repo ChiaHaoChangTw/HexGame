@@ -8,16 +8,43 @@
 #ifndef AISIMULATOR_H
 #define AISIMULATOR_H
 
+/** 
+ * class AiSimulator
+ * A simulator to randomly generate the results of a certain computer AI move.
+ *
+ */
+
 #include <vector>
 #include <utility>
 
 class AiSimulator{
 public:
+	/** 
+ 	 * How many times to simulate.
+     *
+     */
 	static const int TARGET_NUM_SIM = 10000;
-	int simulate(HexBoard& currHexBoard, int x, int y, char player);
+	/** 
+ 	 * Create an AI simulator object.
+     *
+     */
+	AiSimulator();
+	/** 
+     * Deconstruct AiSimulator object.
+     */
+	~AiSimulator();
+	/** 
+ 	 * Return the number of winning simlualtion.
+ 	 *
+ 	 */
+	int simulate(HexBoard*& currHexBoard, int x, int y, char player);
 private:
 	std::vector<std::pair<int, int>> emptyPositions;
-	void findEmpty(const HexBoard& currHexBoard);
+	/** 
+ 	 * Helper function to find and create a set of empty positions.		
+ 	 *
+ 	 */
+	void findEmpty(HexBoard*& currHexBoard);
 };
 
 #endif

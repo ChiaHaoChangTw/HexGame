@@ -137,7 +137,8 @@ bool HexBoard::isWin(char player){
 				visited[i][0] = true;
 				continue;
 			}
-			if(foundPath = this->hasPath(i, 0, player, visited)){
+			foundPath = this->hasPath(i, 0, player, visited);
+			if(foundPath){
 				break;
 			}
 		}
@@ -149,7 +150,8 @@ bool HexBoard::isWin(char player){
 				visited[0][i] = true;
 				continue;
 			}
-			if(foundPath = this->hasPath(0, i, player, visited)){
+			foundPath = this->hasPath(0, i, player, visited);
+			if(foundPath){
 				break;
 			}
 		}
@@ -162,7 +164,7 @@ bool HexBoard::isWin(char player){
  *
  */
 bool HexBoard::hasPath(int i, int j, char player, std::vector<std::vector<bool>>& visited){
-	if(player == 'x' && j == this->hexBoardSize - 1 || player == 'o' && i == this->hexBoardSize - 1){
+	if((player == 'x' && j == this->hexBoardSize - 1) || (player == 'o' && i == this->hexBoardSize - 1)){
 		return true;
 	}
 	vector<vector<int>> offsets = {{0,1},{1,0},{0,-1},{-1,0},{1,-1},{-1,1}};
@@ -177,7 +179,8 @@ bool HexBoard::hasPath(int i, int j, char player, std::vector<std::vector<bool>>
 			visited[ii][jj] = true;
 			continue;
 		}
-		if(foundPath = hasPath(ii, jj, player, visited)){
+		foundPath = hasPath(ii, jj, player, visited);
+		if(foundPath){
 			break;
 		}
 	}

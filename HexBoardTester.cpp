@@ -20,5 +20,39 @@ int main(){
 	cout << "Get char val at point (10, 9) [exp: 'o']: " << myDefinedHexBoard->getHexBoardPoint(10, 9) << endl << "New board: " << endl;
 	myDefinedHexBoard->printHexBoard();
 
+	cout << "Current hex board: " << endl;
+	myDefaultHexBoard->printHexBoard();
+	cout << "x wins in current hex board [exp: 0]:" << endl;
+	cout << myDefaultHexBoard->isWin('x') << endl;
+	cout << "o wins in current hex board [exp: 0]:" << endl;
+	cout << myDefaultHexBoard->isWin('o') << endl << endl;
+
+	myDefaultHexBoard->setHexBoardPoint(0,2,'x'), myDefaultHexBoard->setHexBoardPoint(2,1,'x');
+	myDefaultHexBoard->setHexBoardPoint(3,0,'x'), myDefaultHexBoard->setHexBoardPoint(4,0,'x');
+	cout << "Current hex board: " << endl;
+	myDefaultHexBoard->printHexBoard();
+	cout << "x wins in current hex board [exp: 1]:" << endl;
+	cout << myDefaultHexBoard->isWin('x') << endl;
+	cout << "o wins in current hex board [exp: 0]:" << endl;
+	cout << myDefaultHexBoard->isWin('o') << endl << endl;
+
+	myDefaultHexBoard->setHexBoardPoint(0,3,'o'), myDefaultHexBoard->setHexBoardPoint(1,3,'o');
+	myDefaultHexBoard->setHexBoardPoint(2,3,'o'), myDefaultHexBoard->setHexBoardPoint(3,3,'o'), myDefaultHexBoard->setHexBoardPoint(4,3,'o');
+	cout << "Current hex board: " << endl;
+	myDefaultHexBoard->printHexBoard();
+	cout << "x wins in current hex board [exp: 1]:" << endl;
+	cout << myDefaultHexBoard->isWin('x') << endl;
+	cout << "o wins in current hex board [exp: 0]:" << endl;
+	cout << myDefaultHexBoard->isWin('o') << endl << endl;
+	
+	myDefaultHexBoard->setHexBoardPoint(0,0,'o'), myDefaultHexBoard->setHexBoardPoint(0,1,'o');
+	myDefaultHexBoard->setHexBoardPoint(0,2,'o'), myDefaultHexBoard->setHexBoardPoint(3,4,'o');
+	cout << "Current hex board: " << endl;
+	myDefaultHexBoard->printHexBoard();
+	cout << "x wins in current hex board [exp: 0]:" << endl;
+	cout << myDefaultHexBoard->isWin('x') << endl;
+	cout << "o wins in current hex board [exp: 1]:" << endl;
+	cout << myDefaultHexBoard->isWin('o') << endl << endl;
+
 	return 0;
 }
