@@ -31,6 +31,14 @@ AiSimulator::AiSimulator(){}
 AiSimulator::~AiSimulator(){}
 
 /** 
+ * Return empty position pairs.
+ *
+ */
+vector<pair<int, int>> AiSimulator::getEmptyPositions(){
+	return emptyPositions;
+}
+
+/** 
  * Return the number of winning simlualtion.
  *
  */

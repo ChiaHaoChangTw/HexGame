@@ -34,6 +34,11 @@ public:
      */
 	~AiSimulator();
 	/** 
+ 	 * Return empty position pairs.
+ 	 *
+ 	 */
+	std::vector<std::pair<int, int>> getEmptyPositions();
+	/** 
  	 * Return the number of winning simlualtion.
  	 *
  	 */
