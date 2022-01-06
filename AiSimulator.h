@@ -28,7 +28,7 @@ public:
  	 * Create an AI simulator object.
      *
      */
-	AiSimulator();
+	AiSimulator(HexBoard*& currHexBoard);
 	/** 
      * Deconstruct AiSimulator object.
      */

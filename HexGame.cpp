@@ -12,16 +12,46 @@
 #include <queue>
 using namespace std;
 
-class HexBoardGame(){
+/** 
+ * class HexBoardGame
+ * Hex board game driver.
+ *
+ */
+
+class HexBoardGame{
 public:
+	/** 
+ 	 * Create a default HexBoardGame object.
+ 	 *
+ 	 */
 	HexBoardGame();
+	/** 
+ 	 * Destruct HexBoardGame object.
+ 	 *
+ 	 */
 	~HexBoardGame();
+	/** 
+ 	 * Function enables 2 humans to play hex board game interactively on terminal.
+ 	 *
+ 	 */
 	void playWithHuman(HexBoard*& hexBoard);
+	/** 
+ 	 * Function enables a human to play hex board game with computer AI on terminal.
+ 	 *
+ 	 */
 	void playWithAi(HexBoard*& hexBoard);
 private:
+	/** 
+ 	 * Enables human palyer to make a move on hex board.
+ 	 *
+ 	 */
 	void humanMove(HexBoard*& hexBoard, char& player, bool& gameOver);
+	/** 
+ 	 * AI to make a move on hex board.
+ 	 *
+ 	 */
 	void aiMove(HexBoard*& hexBoard, char& player, bool& gameOver);
-}
+};
 
 HexBoardGame::HexBoardGame(){}
 
@@ -42,27 +72,27 @@ void HexBoardGame::playWithHuman(HexBoard*& hexBoard){
 
 void HexBoardGame::playWithAi(HexBoard*& hexBoard){
 	bool gameOver = false;
-	char humanFirst = "N";
+	char humanFirst = 'N';
 	cout << "Please choose whether you would like to move first or not. Input Y if you would like to move first, and input N if you would like AI to move first: ";
 	cin >> humanFirst;
 	cout << endl;
 	cout << "AI should connect the North and the South sides of the board to win. AI's symbol is o." << endl;
 	cout << "You should connect the West and the East sides of the board to win. Your symbol is x. Your input should look like: x y" << endl << endl;
-	char player = (humanFirst == "Y") ? "x" : "o";
+	char player = (humanFirst == 'Y') ? 'x' : 'o';
 	while(!gameOver){
-		if(player == "o"){
+		if(player == 'o'){
 			aiMove(hexBoard, player, gameOver);
 		}
 		else{
 			humanMove(hexBoard, player, gameOver);
 		}
-		hexBoard->printHexBoard();
-		if(player == "o"){
-			cout << "AI won! You lost." << endl << endl;
-		}
-		else{
-			cout << "Congratulations, you won!" << endl << endl;
-		}
+	}
+	hexBoard->printHexBoard();
+	if(player == 'o'){
+		cout << "AI won! You lost." << endl << endl;
+	}
+	else{
+		cout << "Congratulations, you won!" << endl << endl;
 	}
 }
 
@@ -84,7 +114,7 @@ void HexBoardGame::humanMove(HexBoard*& hexBoard, char& player, bool& gameOver){
 			done = true;
 		}
 	}
-	hexBoard->getHexBoardPoint(x, y) = player;
+	hexBoard->setHexBoardPoint(x, y, player);
 	gameOver = hexBoard->isWin(player);
 	cout << endl << endl;
 	if(!gameOver){
@@ -97,20 +127,19 @@ void HexBoardGame::aiMove(HexBoard*& hexBoard, char& player, bool& gameOver){
 	cout << "Current hex board: " << endl;
 	hexBoard->printHexBoard();
 	cout << "Computer AI is playing..." << endl;
-	AiSimulator* simulator = new AiSimulator();
-	simulator->findEmpty(hexBoard);
+	AiSimulator* simulator = new AiSimulator(hexBoard);
 	vector<pair<int, int>> emptyPositions = simulator->getEmptyPositions();
 	priority_queue<vector<int>> pq;
 	for(int i = 0; i < emptyPositions.size(); ++i){
 		int x = emptyPositions[i].first, y = emptyPositions[i].second;
 		pq.push({simulator->simulate(hexBoard, x, y, player), x, y});
 	}
-	int bestx = pq.top()[1], bexty = pq.top()[2];
+	int bestx = pq.top()[1], besty = pq.top()[2];
 	while(!pq.empty() && hexBoard->getHexBoardPoint(bestx, besty) != '.'){
 		pq.pop();
 		bestx = pq.top()[1], besty = pq.top()[2];
 	}
-	hexBoard->getHexBoardPoint(bestx, besty) = player;
+	hexBoard->setHexBoardPoint(bestx, besty, player);
 	gameOver = hexBoard->isWin(player);
 	cout << endl << endl;
 	if(!gameOver){
@@ -118,7 +147,10 @@ void HexBoardGame::aiMove(HexBoard*& hexBoard, char& player, bool& gameOver){
 	}
 	return;
 }
-
+/** 
+ * Main function to run this program.
+ *
+ */
 int main(){
 	int hexBoardSize;
 	char playWithAi;

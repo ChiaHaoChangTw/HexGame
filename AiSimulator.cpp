@@ -23,7 +23,9 @@ using namespace std;
  * Create an AI simulator object.
  *
  */
-AiSimulator::AiSimulator(){}
+AiSimulator::AiSimulator(HexBoard*& currHexBoard){
+	this->findEmpty(currHexBoard);
+}
 
 /** 
  * Deconstruct AiSimulator object.
@@ -44,7 +46,6 @@ vector<pair<int, int>> AiSimulator::getEmptyPositions(){
  */
 int AiSimulator::simulate(HexBoard*& currHexBoard, int x, int y, char player){
 	int numSim = 0, numWin = 0;
-	this->findEmpty(currHexBoard);
 	vector<pair<int, int>> shuffleEmptyPos = emptyPositions;
 	srand(time(0));
 	while(numSim < TARGET_NUM_SIM){
